@@ -18,13 +18,12 @@ export const setTokensCookies = async ({ res, userId }) => {
     }
   )
 
-  // Expiration -> EX -> https://redis.io/docs/latest/commands/set/
+  // Expiration -> EX -> https://github.com/upstash/redis-js
   await redisClient.set(
     `refresh_token:${userId}`,
     refreshToken,
-    'EX',
-    7 * 24 * 60 * 60
-  ) // 7days
+    { ex: 7 * 24 * 60 * 60 } // 7days
+  )
 
   res.cookie('accessToken', accessToken, {
     httpOnly: true,
