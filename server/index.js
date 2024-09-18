@@ -9,6 +9,7 @@ import fileUpload from 'express-fileupload'
 import { connectDB } from './db/connect.js'
 import authRouter from './routes/authRoutes.js'
 import productRouter from './routes/productRoutes.js'
+import cartRouter from './routes/cartRoutes.js'
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
 
@@ -19,6 +20,7 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/product', productRouter)
+app.use('/api/v1/cart', cartRouter)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
