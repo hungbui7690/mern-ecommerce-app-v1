@@ -1,6 +1,6 @@
 import Coupon from '../model/Coupon.js'
 import Order from '../model/Order.js'
-import { stripe } from '../lib/stripe.js'
+import { stripe } from '../config/index.js'
 import { BadRequestError } from '../errors/index.js'
 import { StatusCodes } from 'http-status-codes'
 
