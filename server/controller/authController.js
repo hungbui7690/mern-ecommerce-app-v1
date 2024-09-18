@@ -14,6 +14,13 @@ export const signup = async (req, res) => {
 
   const user = await User.create({ name, email, password })
 
+  // set first user as admin
+  const countUser = await User.estimatedDocumentCount()
+  if (countUser === 1) {
+    user.role = 'admin'
+    await user.save()
+  }
+
   await setTokensCookies({ res, userId: user._id })
 
   res.status(201).json({
@@ -67,7 +74,7 @@ export const refreshToken = async (req, res) => {
 
   const accessToken = jwt.sign(
     { userId: decoded.userId },
-    process.env.JWT_ACCESS_TOKEN_SECRET,
+    process.env.JWT_SECRET,
     { expiresIn: '15m' }
   )
 
